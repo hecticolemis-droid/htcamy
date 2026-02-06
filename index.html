@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Visualizador interactivo de esquemas de modulación digital para sistemas de comunicaciones">
+    <title>Visualizador de Modulación Digital - Laboratorio de Comunicaciones</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📡</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <!-- ========================================
+             HEADER
+             ======================================== -->
+        <header role="banner">
+            <h1>Visualizador de Modulación Digital</h1>
+            <p>
+                Herramienta interactiva para visualizar y comparar esquemas de modulación 
+                digital: ASK, FSK, PSK y QAM. Explore cómo diferentes parámetros afectan 
+                las señales moduladas en el dominio del tiempo y el espacio de constelación.
+            </p>
+        </header>
+        
+        <!-- ========================================
+             CONTROLES
+             ======================================== -->
+        <main>
+            <section class="controls-container" role="region" aria-label="Panel de controles">
+                <div class="controls-grid">
+                    <!-- Entrada de secuencia binaria -->
+                    <div class="control-group">
+                        <div class="control-item" style="flex: 2;">
+                            <label for="binaryInput">
+                                Secuencia Binaria (solo 0s y 1s):
+                            </label>
+                            <div class="binary-input-container">
+                                <input 
+                                    type="text" 
+                                    id="binaryInput" 
+                                    pattern="[01]+" 
+                                    placeholder="Ejemplo: 10110010"
+                                    value="10110010"
+                                    aria-describedby="binaryHelp"
+                                    required
+                                >
+                                <button 
+                                    id="randomBtn" 
+                                    type="button"
+                                    aria-label="Generar secuencia binaria aleatoria"
+                                >
+                                    🎲 Aleatorio
+                                </button>
+                            </div>
+                            <small id="binaryHelp" style="color: var(--color-text-secondary); font-size: 0.85rem;">
+                                Ingrese una secuencia de bits o genere una aleatoria
+                            </small>
+                        </div>
+                    </div>
+                    
+                    <!-- Selección de tipo de modulación -->
+                    <div class="control-group">
+                        <label>Tipo de Modulación:</label>
+                        <div class="modulation-types" role="group" aria-label="Selección de tipo de modulación">
+                            <button 
+                                class="modulation-btn ask active" 
+                                data-modulation="ask"
+                                aria-pressed="true"
+                            >
+                                ASK
+                            </button>
+                            <button 
+                                class="modulation-btn fsk" 
+                                data-modulation="fsk"
+                                aria-pressed="false"
+                            >
+                                FSK
+                            </button>
+                            <button 
+                                class="modulation-btn psk" 
+                                data-modulation="psk"
+                                aria-pressed="false"
+                            >
+                                PSK
+                            </button>
+                            <button 
+                                class="modulation-btn qam" 
+                                data-modulation="qam"
+                                aria-pressed="false"
+                            >
+                                4-QAM
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Parámetros de modulación -->
+                    <div class="control-row">
+                        <div class="control-item">
+                            <label for="amplitudeInput">
+                                Amplitud (V): <span id="amplitudeValue">5</span>
+                            </label>
+                            <input 
+                                type="range" 
+                                id="amplitudeInput" 
+                                min="1" 
+                                max="10" 
+                                value="5" 
+                                step="0.5"
+                                aria-valuemin="1"
+                                aria-valuemax="10"
+                                aria-valuenow="5"
+                            >
+                        </div>
+                        
+                        <div class="control-item">
+                            <label for="frequencyInput">
+                                Frecuencia Portadora (Hz): <span id="frequencyValue">5</span>
+                            </label>
+                            <input 
+                                type="range" 
+                                id="frequencyInput" 
+                                min="1" 
+                                max="10" 
+                                value="5" 
+                                step="1"
+                                aria-valuemin="1"
+                                aria-valuemax="10"
+                                aria-valuenow="5"
+                            >
+                        </div>
+                        
+                        <div class="control-item">
+                            <label for="bitRateInput">
+                                Tasa de Bits (bps): <span id="bitRateValue">2</span>
+                            </label>
+                            <input 
+                                type="range" 
+                                id="bitRateInput" 
+                                min="1" 
+                                max="5" 
+                                value="2" 
+                                step="1"
+                                aria-valuemin="1"
+                                aria-valuemax="5"
+                                aria-valuenow="2"
+                            >
+                        </div>
+                    </div>
+                    
+                    <!-- Panel de información -->
+                    <div class="info-panel">
+                        <h3>Información del Sistema</h3>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="info-label">Bits:</span>
+                                <span class="info-value" id="infoNumBits">8</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Duración bit:</span>
+                                <span class="info-value" id="infoBitDuration">0.5 s</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Símbolos:</span>
+                                <span class="info-value" id="infoSymbols">8</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Modulación:</span>
+                                <span class="info-value" id="infoModulation">ASK</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- ========================================
+                 VISUALIZACIONES
+                 ======================================== -->
+            <div class="visualizations-container">
+                <!-- Panel de dominio temporal -->
+                <article class="visualization-panel" role="region" aria-label="Visualización en dominio temporal">
+                    <h2>Dominio Temporal</h2>
+                    <div class="canvas-container">
+                        <canvas 
+                            id="timeDomainCanvas" 
+                            width="800" 
+                            height="500"
+                            aria-label="Gráfica de señal modulada en el dominio del tiempo"
+                        >
+                            Su navegador no soporta el elemento canvas.
+                        </canvas>
+                    </div>
+                </article>
+                
+                <!-- Panel de diagrama de constelación -->
+                <article class="visualization-panel" role="region" aria-label="Diagrama de constelación">
+                    <h2>Diagrama de Constelación</h2>
+                    <div class="canvas-container">
+                        <canvas 
+                            id="constellationCanvas" 
+                            width="800" 
+                            height="500"
+                            aria-label="Diagrama de constelación de símbolos modulados"
+                        >
+                            Su navegador no soporta el elemento canvas.
+                        </canvas>
+                    </div>
+                </article>
+            </div>
+        </main>
+    </div>
+    
+    <!-- ========================================
+         JAVASCRIPT - LÓGICA DE LA APLICACIÓN
+         ======================================== -->
+    <script src="script.js"></script>
+</body>
+</html>

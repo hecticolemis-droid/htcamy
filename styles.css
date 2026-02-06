@@ -1,0 +1,434 @@
+/* ========================================
+   VARIABLES CSS Y CONFIGURACIÓN GLOBAL
+   ======================================== */
+:root {
+    /* Paleta de colores profesional inspirada en equipos de telecomunicaciones */
+    --color-background: #0a0e17;
+    --color-panel: #121a2a;
+    --color-border: #1e2b4d;
+    --color-text: #e0e7ff;
+    --color-text-secondary: #8fa3d1;
+    --color-primary: #0066ff;
+    --color-secondary: #00ccff;
+    --color-accent: #9d4edd;
+    --color-success: #00ff9d;
+    --color-warning: #ffb86c;
+    
+    /* Colores específicos por tipo de modulación */
+    --color-ask: #ff6b6b;
+    --color-fsk: #4ecdc4;
+    --color-psk: #ffd166;
+    --color-qam: #9d4edd;
+    
+    /* Sistema de espaciado */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    
+    /* Otros valores reutilizables */
+    --border-radius: 8px;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --transition: all 0.3s ease;
+}
+
+/* Reset y estilos base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: var(--spacing-sm);
+}
+
+/* ========================================
+   LAYOUT PRINCIPAL CON CSS GRID
+   ======================================== */
+.container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas:
+        "header"
+        "controls"
+        "visualizations";
+    gap: var(--spacing-md);
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* ========================================
+   HEADER
+   ======================================== */
+header {
+    grid-area: header;
+    text-align: center;
+    padding: var(--spacing-lg);
+    background-color: var(--color-panel);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow);
+}
+
+header h1 {
+    color: var(--color-secondary);
+    margin-bottom: var(--spacing-xs);
+    font-size: 1.8rem;
+}
+
+header p {
+    color: var(--color-text-secondary);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* ========================================
+   CONTROLES - USANDO FLEXBOX
+   ======================================== */
+.controls-container {
+    grid-area: controls;
+    background-color: var(--color-panel);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--color-border);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow);
+}
+
+.controls-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.control-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    align-items: center;
+}
+
+.control-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    width: 100%;
+}
+
+.control-item {
+    flex: 1;
+    min-width: 200px;
+}
+
+label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+input, select, button {
+    padding: 0.75rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    color: var(--color-text);
+    font-size: 1rem;
+    width: 100%;
+    transition: var(--transition);
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(0, 102, 255, 0.2);
+}
+
+/* Validación de input binario */
+input[type="text"]:invalid {
+    border-color: var(--color-warning);
+}
+
+input[type="text"]:valid {
+    border-color: var(--color-success);
+}
+
+button {
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #0052d4;
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Contenedor de input binario */
+.binary-input-container {
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: flex-end;
+}
+
+.binary-input-container input {
+    flex: 1;
+}
+
+.binary-input-container button {
+    flex: 0 0 auto;
+    width: auto;
+    padding: 0.75rem 1.5rem;
+}
+
+/* Botones de tipo de modulación */
+.modulation-types {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.modulation-btn {
+    flex: 1;
+    min-width: 120px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    transition: var(--transition);
+}
+
+.modulation-btn.active {
+    background-color: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 20px rgba(0, 102, 255, 0.4);
+}
+
+.modulation-btn.ask.active {
+    background-color: var(--color-ask);
+    border-color: var(--color-ask);
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.4);
+}
+
+.modulation-btn.fsk.active {
+    background-color: var(--color-fsk);
+    border-color: var(--color-fsk);
+    box-shadow: 0 0 20px rgba(78, 205, 196, 0.4);
+}
+
+.modulation-btn.psk.active {
+    background-color: var(--color-psk);
+    border-color: var(--color-psk);
+    box-shadow: 0 0 20px rgba(255, 209, 102, 0.4);
+}
+
+.modulation-btn.qam.active {
+    background-color: var(--color-qam);
+    border-color: var(--color-qam);
+    box-shadow: 0 0 20px rgba(157, 78, 237, 0.4);
+}
+
+/* ========================================
+   VISUALIZACIONES - CSS GRID PARA DOS COLUMNAS
+   ======================================== */
+.visualizations-container {
+    grid-area: visualizations;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+}
+
+.visualization-panel {
+    background-color: var(--color-panel);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--color-border);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+}
+
+.visualization-panel h2 {
+    color: var(--color-secondary);
+    margin-bottom: var(--spacing-md);
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.canvas-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+canvas {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
+
+/* ========================================
+   INFORMACIÓN Y ESTADÍSTICAS
+   ======================================== */
+.info-panel {
+    background-color: rgba(0, 102, 255, 0.1);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+}
+
+.info-panel h3 {
+    color: var(--color-secondary);
+    font-size: 1rem;
+    margin-bottom: var(--spacing-xs);
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--spacing-sm);
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--spacing-xs);
+    background-color: rgba(255, 255, 255, 0.03);
+    border-radius: 4px;
+}
+
+.info-label {
+    color: var(--color-text-secondary);
+    font-size: 0.85rem;
+}
+
+.info-value {
+    color: var(--color-success);
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN - MEDIA QUERIES
+   ======================================== */
+
+/* Tablets y pantallas medianas */
+@media (max-width: 768px) {
+    .visualizations-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .control-row {
+        flex-direction: column;
+    }
+    
+    .control-item {
+        width: 100%;
+    }
+    
+    .modulation-types {
+        flex-direction: column;
+    }
+    
+    .modulation-btn {
+        min-width: 100%;
+    }
+    
+    header h1 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Móviles */
+@media (max-width: 480px) {
+    body {
+        padding: var(--spacing-xs);
+    }
+    
+    .container {
+        gap: var(--spacing-sm);
+    }
+    
+    header {
+        padding: var(--spacing-sm);
+    }
+    
+    header h1 {
+        font-size: 1.3rem;
+    }
+    
+    header p {
+        font-size: 0.9rem;
+    }
+    
+    .controls-container {
+        padding: var(--spacing-sm);
+    }
+    
+    .binary-input-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .binary-input-container button {
+        width: 100%;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ========================================
+   ACCESIBILIDAD
+   ======================================== */
+
+/* Indicador de foco visible para navegación por teclado */
+*:focus-visible {
+    outline: 2px solid var(--color-secondary);
+    outline-offset: 2px;
+}
+
+/* Reducción de movimiento para usuarios que lo prefieren */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Modo de alto contraste */
+@media (prefers-contrast: high) {
+    :root {
+        --color-border: #ffffff;
+        --color-text: #ffffff;
+    }
+}

@@ -1,0 +1,4 @@
+📂 proyecto_modulacion/
+├── 📄 index.html          (Archivo HTML principal)
+├── 📄 styles.css         (Archivo de estilos CSS)
+└── 📄 script.js          (Archivo de lógica JavaScript)
