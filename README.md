@@ -1,171 +1,296 @@
-visualizador-modulacion/
-├── index.html          # Estructura principal de la aplicación
-├── styles.css          # Estilos CSS con diseño responsive
-├── script.js           # Lógica JavaScript y algoritmos de modulación
-├── README.md           
-🎮 Cómo Usar
-1. Ingresar Secuencia Binaria
-Escribe una secuencia de bits (ej: 10110010)
 
-O genera una secuencia aleatoria con el botón 🎲
+================================================================================
+VISUALIZADOR DE MODULACIÓN DIGITAL - NUEVA VERSIÓN
+================================================================================
+Versión: 2.0
+Fecha: 6 de Febrero, 2026
+Desarrolladores: Héctor Lemis Pérez Matos & Amanda Vanessa Mengana López
+================================================================================
 
-Solo se permiten caracteres 0 y 1
+DESCRIPCIÓN
+================================================================================
+Aplicación web completamente rediseñada desde cero para visualizar esquemas
+de modulación digital (ASK, FSK, PSK, QAM) con:
 
-2. Seleccionar Modulación
-Haz clic en uno de los 4 tipos disponibles
+✅ Interfaz simplificada e intuitiva
+✅ Tooltips explicativos en cada elemento
+✅ 100% responsive (funciona en CUALQUIER dispositivo)
+✅ Sin problemas de CSS
+✅ Optimizada para móviles y tablets
 
-Los botones cambiarán de color según la modulación seleccionada
+ARCHIVOS INCLUIDOS
+================================================================================
+📄 index.html - Estructura HTML simplificada con tooltips
+📄 styles.css - CSS completamente nuevo y responsive
+📄 script.js - JavaScript optimizado con sistema de tooltips
 
-3. Ajustar Parámetros
-Amplitud: Controla el nivel de la señal
+CARACTERÍSTICAS PRINCIPALES
+================================================================================
 
-Frecuencia: Ajusta la frecuencia portadora
+1. INTERFAZ SIMPLIFICADA
+   - Diseño por pasos numerados (1, 2, 3, 4, 5)
+   - Botones grandes con iconos descriptivos
+   - Colores distintivos para cada modulación
 
-Tasa de bits: Define cuántos bits por segundo se transmiten
+2. TOOLTIPS EXPLICATIVOS
+   - Pasa el mouse (desktop) o toca (móvil) el icono ℹ️
+   - Explicaciones sencillas de cada control
+   - Información contextual sobre cada modulación
 
-4. Interpretar Visualizaciones
-Dominio del tiempo: Muestra la señal modulada como función del tiempo
+3. RESPONSIVE 100%
+   - Desktop: Layout de 2 columnas optimizado
+   - Tablet: Diseño adaptado a pantalla mediana
+   - Móvil: Layout vertical optimizado
+   - Móvil pequeño: Ajustes para pantallas <375px
 
-Diagrama de constelación: Representa símbolos en el plano complejo (I-Q)
+4. OPTIMIZACIONES MÓVILES
+   - Botones grandes (mínimo 48px de altura)
+   - Fuente mínima 16px (evita zoom en iOS)
+   - Sliders fáciles de manipular
+   - Sin scroll horizontal
+   - Touch feedback optimizado
 
-🔧 Tecnologías Utilizadas
-Frontend
-HTML5 Semántico: Uso de <header>, <main>, <section>, <article>
+CÓMO USAR
+================================================================================
 
-CSS3 Avanzado:
+INSTALACIÓN:
+1. Descarga los 3 archivos (index.html, styles.css, script.js)
+2. Colócalos en la misma carpeta
+3. Abre index.html en tu navegador
 
-CSS Grid para layout principal
+USO:
+1. Ingresa una secuencia binaria (0s y 1s) o genera una aleatoria
+2. Selecciona el tipo de modulación (ASK, FSK, PSK, QAM)
+3. Ajusta los parámetros con los sliders
+4. Observa las visualizaciones en tiempo real
 
-Flexbox para controles
+TOOLTIPS:
+- Desktop: Pasa el mouse sobre los iconos ℹ️
+- Móvil: Toca los iconos ℹ️ para ver la explicación
 
-Variables CSS para tema personalizable
+TIPOS DE MODULACIÓN
+================================================================================
 
-Media queries para diseño responsive
+ASK (Amplitude Shift Keying) - 📊
+   • Modula la AMPLITUD
+   • Bit 1 = alta amplitud
+   • Bit 0 = baja amplitud
+   • Fácil de implementar pero susceptible a ruido
+
+FSK (Frequency Shift Keying) - 🌊
+   • Modula la FRECUENCIA
+   • Bit 1 = alta frecuencia
+   • Bit 0 = baja frecuencia
+   • Resistente a variaciones de amplitud
+
+PSK (Phase Shift Keying) - 🔄
+   • Modula la FASE
+   • Bit 1 = 180°
+   • Bit 0 = 0°
+   • Mejor eficiencia de potencia
+
+QAM (Quadrature Amplitude Modulation) - ⚡
+   • Combina AMPLITUD y FASE
+   • Transmite 2 bits por símbolo
+   • Mayor eficiencia espectral
+
+CONTROLES
+================================================================================
+
+SECUENCIA BINARIA:
+   - Ingresa solo 0s y 1s
+   - Máximo recomendado: 16 bits
+   - Botón "Aleatorio" genera secuencia automática
+
+AMPLITUD (1-10 V):
+   - Altura de la onda
+   - Mayor amplitud = señal más fuerte
+   - Afecta la potencia de transmisión
+
+FRECUENCIA (1-10 Hz):
+   - Velocidad de oscilación de la onda
+   - Mayor frecuencia = más ciclos por segundo
+   - Importante en FSK
+
+VELOCIDAD (1-5 bits/s):
+   - Qué tan rápido se envían los bits
+   - Mayor velocidad = transmisión más rápida
+   - Afecta el ancho de banda
+
+VISUALIZACIONES
+================================================================================
+
+SEÑAL EN EL TIEMPO:
+   • Verde punteado = Señal digital original (rectangular)
+   • Color sólido = Señal modulada (sinusoidal)
+   • Muestra cómo varía la señal a lo largo del tiempo
+
+DIAGRAMA DE CONSTELACIÓN:
+   • Solo aplica para PSK y QAM
+   • Muestra los símbolos posibles
+   • Eje I = Componente en fase
+   • Eje Q = Componente en cuadratura
+   • FSK no tiene diagrama I-Q
+
+COMPATIBILIDAD
+================================================================================
+
+NAVEGADORES SOPORTADOS:
+✅ Chrome 90+
+✅ Firefox 88+
+✅ Safari 14+
+✅ Edge 90+
+✅ Opera 76+
+
+DISPOSITIVOS PROBADOS:
+✅ iPhone (todos los modelos desde SE)
+✅ iPad (todos los modelos)
+✅ Android (todos los tamaños)
+✅ Desktop (Windows, Mac, Linux)
+
+RESOLUCIONES SOPORTADAS:
+✅ Móvil pequeño: 320px - 375px
+✅ Móvil estándar: 375px - 480px
+✅ Tablet: 480px - 768px
+✅ Desktop: 768px+
+
+PROBLEMAS CORREGIDOS DE LA VERSIÓN ANTERIOR
+================================================================================
+
+❌ ANTES: Overflow horizontal en móviles
+✅ AHORA: Sin scroll horizontal en ningún dispositivo
+
+❌ ANTES: Botones pequeños difíciles de presionar
+✅ AHORA: Botones grandes (48px mínimo) fáciles de tocar
+
+❌ ANTES: Canvas que se salía de sus contenedores
+✅ AHORA: Canvas perfectamente ajustado
+
+❌ ANTES: Texto difícil de leer en móviles
+✅ AHORA: Fuentes optimizadas para cada tamaño
+
+❌ ANTES: Controles confusos sin explicación
+✅ AHORA: Tooltips explicativos en todo
+
+❌ ANTES: Zoom automático en iOS
+✅ AHORA: Fuente 16px previene zoom
+
+❌ ANTES: Sliders difíciles de manipular
+✅ AHORA: Área táctil grande y cómoda
+
+TECNOLOGÍAS UTILIZADAS
+================================================================================
+
+HTML5:
+   • Estructura semántica
+   • Canvas para gráficos
+   • Validación nativa de formularios
+
+CSS3:
+   • Variables CSS (custom properties)
+   • Flexbox y Grid
+   • Media queries responsive
+   • Gradientes y transiciones
 
 JavaScript ES6+:
+   • Eventos modernos
+   • Arrow functions
+   • Template literals
+   • Sistema de tooltips personalizado
 
-Canvas API para gráficos
+ESTRUCTURA DEL CÓDIGO
+================================================================================
 
-Manipulación del DOM
+HTML:
+   - Header simple con título y descripción
+   - 5 secciones numeradas (pasos del proceso)
+   - Canvas para visualizaciones
+   - Footer con créditos
 
-Event listeners para interactividad
+CSS:
+   - Variables para colores y espaciado
+   - Mobile-first approach
+   - 4 breakpoints responsive
+   - Optimizaciones táctiles
 
-Características Técnicas
-✅ Validación de formularios HTML5
+JavaScript:
+   - Estado global con object literal
+   - Algoritmos de modulación precisos
+   - Sistema de tooltips (mouse + touch)
+   - Renderizado optimizado en canvas
 
-✅ Canvas para renderizado de gráficos
+TIPS DE USO
+================================================================================
 
-✅ Diseño mobile-first
+PARA MEJORES RESULTADOS:
+1. Usa secuencias de 8-12 bits para mejor visualización
+2. Frecuencia 5 Hz es óptima para ver las ondas
+3. Velocidad 2 bits/s muestra bien las transiciones
+4. Explora todos los tipos de modulación
 
-✅ Accesibilidad (ARIA, navegación por teclado)
+PARA APRENDER:
+1. Empieza con ASK (la más simple)
+2. Compara con FSK para ver diferencia de frecuencia
+3. Prueba PSK para ver cambios de fase
+4. Termina con QAM (la más compleja)
 
-✅ Sin dependencias de frameworks
+PARA PRESENTAR:
+1. Usa pantalla completa
+2. Genera secuencia aleatoria para variedad
+3. Muestra los tooltips para explicar conceptos
+4. Compara las 4 modulaciones con la misma secuencia
 
-📚 Conceptos Educativos
-Esta aplicación ayuda a visualizar:
+SOPORTE TÉCNICO
+================================================================================
 
-ASK: Modulación por desplazamiento de amplitud
+Si encuentras algún problema:
+1. Verifica que los 3 archivos estén en la misma carpeta
+2. Asegúrate de usar un navegador moderno actualizado
+3. Limpia la caché del navegador (Ctrl+F5)
+4. Prueba en modo incógnito
 
-Bit 1 = Amplitud alta
+Problemas comunes:
+- "No se ve nada": Revisa la consola (F12)
+- "Los tooltips no funcionan": Actualiza el navegador
+- "Se ve mal en móvil": Limpia caché y recarga
 
-Bit 0 = Amplitud baja
+CRÉDITOS
+================================================================================
 
-FSK: Modulación por desplazamiento de frecuencia
+Desarrolladores:
+   • Héctor Lemis Pérez Matos
+   • Amanda Vanessa Mengana López
 
-Bit 1 = Frecuencia alta
+Institución:
+   • Instituto Superior Julio Antonio Mella
 
-Bit 0 = Frecuencia baja
+Tecnologías:
+   • HTML5, CSS3, JavaScript
+   • Canvas API 2D
+   • Responsive Web Design
 
-PSK: Modulación por desplazamiento de fase
+Asistencia de Desarrollo:
+   • Claude (Anthropic AI)
 
-Bit 1 = Fase 180°
+LICENCIA
+================================================================================
 
-Bit 0 = Fase 0°
+Este proyecto es de código abierto para fines educativos.
+Libre uso para aprendizaje y enseñanza.
 
-4-QAM: Modulación de amplitud en cuadratura
+VERSIÓN
+================================================================================
 
-2 bits por símbolo
+v2.0 - Febrero 2026
+   • Rediseño completo desde cero
+   • Interfaz simplificada
+   • Sistema de tooltips
+   • 100% responsive
+   • Optimizado para móviles
 
-Símbolos en cuadrantes del plano complejo
+v1.0 - Original
+   • Versión inicial con problemas en móviles
 
-🧪 Casos de Uso
-Para Estudiantes
-Comprender visualmente diferencias entre esquemas de modulación
-
-Experimentar con parámetros y observar efectos en tiempo real
-
-Preparación para laboratorios de comunicaciones
-
-Para Educadores
-Demostraciones en clase
-
-Herramienta de enseñanza interactiva
-
-Generación de ejemplos personalizados
-
-Para Profesionales
-Prototipado rápido de señales
-
-Verificación de conceptos teóricos
-
-Herramienta de referencia visual
-
-🔍 Detalles Técnicos de Implementación
-Algoritmos de Modulación
-javascript
-// Ejemplo: Modulación PSK
-function modulatePSK(bit, t, bitDuration, fc) {
-    const phase = bit === '1' ? Math.PI : 0;
-    return amplitude * Math.cos(2 * Math.PI * fc * t + phase);
-}
-Responsive Design
-Breakpoints: 480px (móvil), 768px (tablet), 1024px (escritorio)
-
-CSS Grid se adapta de 2 columnas a 1 columna en móviles
-
-Controles se reorganizan automáticamente
-
-Accesibilidad
-Etiquetas ARIA para elementos canvas
-
-Navegación completa por teclado
-
-Contraste de colores adecuado
-
-Reducción de movimiento para usuarios sensibles
-
-🤝 Contribuir
-¡Las contribuciones son bienvenidas! Sigue estos pasos:
-
-Haz un fork del proyecto
-
-Crea una rama para tu funcionalidad (git checkout -b feature/nueva-funcionalidad)
-
-Commit tus cambios (git commit -m 'Añadir nueva funcionalidad')
-
-Push a la rama (git push origin feature/nueva-funcionalidad)
-
-Abre un Pull Request
-
-Mejoras Planeadas
-Agregar más tipos de modulación (8-PSK, 16-QAM)
-
-Exportar gráficos como imágenes
-
-Añadir ruido a la señal para simular condiciones reales
-
-Implementar demodulación visual
-
-Soporte para importar secuencias desde archivo
-
-📄 Licencia
-Este proyecto está bajo la Licencia MIT. Ver el archivo LICENSE para más detalles.
-
-👏 Agradecimientos
-Inspiración: Laboratorios de comunicaciones de universidades
-
-Colores: Paleta inspirada en equipos de telecomunicaciones profesionales
-
-Iconos: Emojis nativos para máxima compatibilidad
-
-Testing: Comunidad de desarrolladores web
+================================================================================
+FIN DEL DOCUMENTO
+================================================================================
