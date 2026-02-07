@@ -2,222 +2,198 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Visualizador interactivo de esquemas de modulación digital para sistemas de comunicaciones">
-    <title>Visualizador de Modulación Digital - Laboratorio de Comunicaciones</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Visualizador de Modulación Digital - Herramienta educativa">
+    <title>Modulación Digital</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📡</text></svg>">
 </head>
 <body>
-    <div class="container">
-        <!-- ========================================
-             HEADER
-             ======================================== -->
-        <header role="banner">
-            <h1>Visualizador de Modulación Digital</h1>
-            <p>
-                Herramienta interactiva para visualizar y comparar esquemas de modulación 
-                digital: ASK, FSK, PSK y QAM. Explore cómo diferentes parámetros afectan 
-                las señales moduladas en el dominio del tiempo y el espacio de constelación.
-            </p>
-        </header>
-        
-        <!-- ========================================
-             CONTROLES
-             ======================================== -->
-        <main>
-            <section class="controls-container" role="region" aria-label="Panel de controles">
-                <div class="controls-grid">
-                    <!-- Entrada de secuencia binaria -->
-                    <div class="control-group">
-                        <div class="control-item" style="flex: 2;">
-                            <label for="binaryInput">
-                                Secuencia Binaria (solo 0s y 1s):
-                            </label>
-                            <div class="binary-input-container">
-                                <input 
-                                    type="text" 
-                                    id="binaryInput" 
-                                    pattern="[01]+" 
-                                    placeholder="Ejemplo: 10110010"
-                                    value="10110010"
-                                    aria-describedby="binaryHelp"
-                                    required
-                                >
-                                <button 
-                                    id="randomBtn" 
-                                    type="button"
-                                    aria-label="Generar secuencia binaria aleatoria"
-                                >
-                                    🎲 Aleatorio
-                                </button>
-                            </div>
-                            <small id="binaryHelp" style="color: var(--color-text-secondary); font-size: 0.85rem;">
-                                Ingrese una secuencia de bits o genere una aleatoria
-                            </small>
-                        </div>
-                    </div>
-                    
-                    <!-- Selección de tipo de modulación -->
-                    <div class="control-group">
-                        <label>Tipo de Modulación:</label>
-                        <div class="modulation-types" role="group" aria-label="Selección de tipo de modulación">
-                            <button 
-                                class="modulation-btn ask active" 
-                                data-modulation="ask"
-                                aria-pressed="true"
-                            >
-                                ASK
-                            </button>
-                            <button 
-                                class="modulation-btn fsk" 
-                                data-modulation="fsk"
-                                aria-pressed="false"
-                            >
-                                FSK
-                            </button>
-                            <button 
-                                class="modulation-btn psk" 
-                                data-modulation="psk"
-                                aria-pressed="false"
-                            >
-                                PSK
-                            </button>
-                            <button 
-                                class="modulation-btn qam" 
-                                data-modulation="qam"
-                                aria-pressed="false"
-                            >
-                                4-QAM
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Parámetros de modulación -->
-                    <div class="control-row">
-                        <div class="control-item">
-                            <label for="amplitudeInput">
-                                Amplitud (V): <span id="amplitudeValue">5</span>
-                            </label>
-                            <input 
-                                type="range" 
-                                id="amplitudeInput" 
-                                min="1" 
-                                max="10" 
-                                value="5" 
-                                step="0.5"
-                                aria-valuemin="1"
-                                aria-valuemax="10"
-                                aria-valuenow="5"
-                            >
-                        </div>
-                        
-                        <div class="control-item">
-                            <label for="frequencyInput">
-                                Frecuencia Portadora (Hz): <span id="frequencyValue">5</span>
-                            </label>
-                            <input 
-                                type="range" 
-                                id="frequencyInput" 
-                                min="1" 
-                                max="10" 
-                                value="5" 
-                                step="1"
-                                aria-valuemin="1"
-                                aria-valuemax="10"
-                                aria-valuenow="5"
-                            >
-                        </div>
-                        
-                        <div class="control-item">
-                            <label for="bitRateInput">
-                                Tasa de Bits (bps): <span id="bitRateValue">2</span>
-                            </label>
-                            <input 
-                                type="range" 
-                                id="bitRateInput" 
-                                min="1" 
-                                max="5" 
-                                value="2" 
-                                step="1"
-                                aria-valuemin="1"
-                                aria-valuemax="5"
-                                aria-valuenow="2"
-                            >
-                        </div>
-                    </div>
-                    
-                    <!-- Panel de información -->
-                    <div class="info-panel">
-                        <h3>Información del Sistema</h3>
-                        <div class="info-grid">
-                            <div class="info-item">
-                                <span class="info-label">Bits:</span>
-                                <span class="info-value" id="infoNumBits">8</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Duración bit:</span>
-                                <span class="info-value" id="infoBitDuration">0.5 s</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Símbolos:</span>
-                                <span class="info-value" id="infoSymbols">8</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Modulación:</span>
-                                <span class="info-value" id="infoModulation">ASK</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+    <!-- Header Simple -->
+    <header>
+        <h1>📡 Modulación Digital</h1>
+        <p>Visualiza cómo se transmiten datos digitales</p>
+    </header>
+
+    <!-- Contenedor Principal -->
+    <main>
+        <!-- Sección de Entrada de Datos -->
+        <section class="card">
+            <h2>1. Datos a Transmitir</h2>
             
-            <!-- ========================================
-                 VISUALIZACIONES
-                 ======================================== -->
-            <div class="visualizations-container">
-                <!-- Panel de dominio temporal -->
-                <article class="visualization-panel" role="region" aria-label="Visualización en dominio temporal">
-                    <h2>Dominio Temporal</h2>
-                    <div class="canvas-container">
-                        <canvas 
-                            id="timeDomainCanvas" 
-                            width="800" 
-                            height="500"
-                            aria-label="Gráfica de señal modulada en el dominio del tiempo"
-                        >
-                            Su navegador no soporta el elemento canvas.
-                        </canvas>
-                    </div>
-                </article>
+            <div class="input-group">
+                <label for="binaryInput">
+                    Secuencia Binaria
+                    <span class="tooltip" data-tip="Ingresa 0s y 1s que quieres transmitir. Ejemplo: 10110010">ℹ️</span>
+                </label>
+                <div class="input-with-button">
+                    <input 
+                        type="text" 
+                        id="binaryInput" 
+                        placeholder="10110010"
+                        value="10110010"
+                        pattern="[01]+"
+                    >
+                    <button 
+                        id="randomBtn" 
+                        class="btn-secondary"
+                        data-tip="Genera una secuencia aleatoria de bits"
+                    >
+                        🎲 Aleatorio
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Tipo de Modulación -->
+        <section class="card">
+            <h2>2. Tipo de Modulación</h2>
+            <p class="help-text">Selecciona cómo quieres modular la señal</p>
+            
+            <div class="modulation-grid">
+                <button 
+                    class="mod-btn active" 
+                    data-mod="ask"
+                    data-tip="ASK: Cambia la AMPLITUD de la señal. Bit 1 = alta amplitud, Bit 0 = baja amplitud"
+                >
+                    <span class="mod-icon">📊</span>
+                    <span class="mod-name">ASK</span>
+                    <span class="mod-desc">Amplitud</span>
+                </button>
                 
-                <!-- Panel de diagrama de constelación -->
-                <article class="visualization-panel" role="region" aria-label="Diagrama de constelación">
-                    <h2>Diagrama de Constelación</h2>
-                    <div class="canvas-container">
-                        <canvas 
-                            id="constellationCanvas" 
-                            width="800" 
-                            height="500"
-                            aria-label="Diagrama de constelación de símbolos modulados"
-                        >
-                            Su navegador no soporta el elemento canvas.
-                        </canvas>
-                    </div>
-                </article>
+                <button 
+                    class="mod-btn" 
+                    data-mod="fsk"
+                    data-tip="FSK: Cambia la FRECUENCIA de la señal. Bit 1 = alta frecuencia, Bit 0 = baja frecuencia"
+                >
+                    <span class="mod-icon">🌊</span>
+                    <span class="mod-name">FSK</span>
+                    <span class="mod-desc">Frecuencia</span>
+                </button>
+                
+                <button 
+                    class="mod-btn" 
+                    data-mod="psk"
+                    data-tip="PSK: Cambia la FASE de la señal. Bit 1 = 180°, Bit 0 = 0°"
+                >
+                    <span class="mod-icon">🔄</span>
+                    <span class="mod-name">PSK</span>
+                    <span class="mod-desc">Fase</span>
+                </button>
+                
+                <button 
+                    class="mod-btn" 
+                    data-mod="qam"
+                    data-tip="QAM: Combina AMPLITUD y FASE. Transmite 2 bits a la vez para mayor eficiencia"
+                >
+                    <span class="mod-icon">⚡</span>
+                    <span class="mod-name">QAM</span>
+                    <span class="mod-desc">Amplitud + Fase</span>
+                </button>
             </div>
-        </main>
-    </div>
-    
-    <!-- ========================================
-         JAVASCRIPT - LÓGICA DE LA APLICACIÓN
-         ======================================== -->
+        </section>
+
+        <!-- Sección de Parámetros -->
+        <section class="card">
+            <h2>3. Ajustes de la Señal</h2>
+            
+            <div class="param-group">
+                <label>
+                    Amplitud: <strong id="ampValue">5</strong> V
+                    <span class="tooltip" data-tip="Altura de la onda. Mayor amplitud = señal más fuerte">ℹ️</span>
+                </label>
+                <input 
+                    type="range" 
+                    id="amplitude" 
+                    min="1" 
+                    max="10" 
+                    value="5" 
+                    step="0.5"
+                >
+            </div>
+            
+            <div class="param-group">
+                <label>
+                    Frecuencia: <strong id="freqValue">5</strong> Hz
+                    <span class="tooltip" data-tip="Qué tan rápido oscila la onda. Mayor frecuencia = más ciclos por segundo">ℹ️</span>
+                </label>
+                <input 
+                    type="range" 
+                    id="frequency" 
+                    min="1" 
+                    max="10" 
+                    value="5"
+                >
+            </div>
+            
+            <div class="param-group">
+                <label>
+                    Velocidad: <strong id="speedValue">2</strong> bits/s
+                    <span class="tooltip" data-tip="Qué tan rápido se envían los bits. Mayor = transmisión más rápida">ℹ️</span>
+                </label>
+                <input 
+                    type="range" 
+                    id="bitrate" 
+                    min="1" 
+                    max="5" 
+                    value="2"
+                >
+            </div>
+        </section>
+
+        <!-- Visualizaciones -->
+        <section class="card">
+            <h2>
+                4. Señal en el Tiempo
+                <span class="tooltip" data-tip="Muestra cómo varía la señal a lo largo del tiempo">ℹ️</span>
+            </h2>
+            <div class="canvas-wrapper">
+                <canvas id="timeCanvas"></canvas>
+            </div>
+            <div class="legend">
+                <span class="legend-item"><span class="legend-dot digital"></span>Señal Digital</span>
+                <span class="legend-item"><span class="legend-dot modulated"></span>Señal Modulada</span>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>
+                5. Diagrama de Constelación
+                <span class="tooltip" data-tip="Muestra los símbolos posibles en el plano I-Q (solo para PSK y QAM)">ℹ️</span>
+            </h2>
+            <div class="canvas-wrapper">
+                <canvas id="constellationCanvas"></canvas>
+            </div>
+        </section>
+
+        <!-- Información -->
+        <section class="card info-card">
+            <h3>📊 Información</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-label">Bits:</span>
+                    <span class="info-value" id="infoBits">8</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Duración:</span>
+                    <span class="info-value" id="infoDuration">4.0 s</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Tipo:</span>
+                    <span class="info-value" id="infoType">ASK</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>Héctor Lemis Pérez Matos</strong> & <strong>Amanda Vanessa Mengana López</strong></p>
+        <p class="footer-small">Instituto Superior Julio Antonio Mella</p>
+    </footer>
+
+    <!-- Tooltip flotante -->
+    <div id="floatingTooltip" class="floating-tooltip"></div>
+
     <script src="script.js"></script>
-     <footer class="app-footer" role="contentinfo">
-            <div class="footer-content">
-                <p>Desarrollado por: <strong>Héctor Lemis Pérez Matos</strong> y <strong>Amanda Vanessa Mengana López</strong></p>
-                <p class="footer-subtitle">Herramienta educativa para laboratorio de comunicaciones - Instituto Superior Julio Antonio Mella </p>
-            </div>
-        </footer>
 </body>
 </html>
